@@ -5,39 +5,15 @@ version: 1.0.0
 author: Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
-tags: [general]
 ---
 
-# Github Automation Tips — Skill
+# GitHub Automation Tips
 
-Best practices for GitHub CLI and API automation for agents.
+Tips for when `gh` or `git` aren't behaving or aren't available.
 
-## Install
+## Pitfalls
 
-```bash
-cp -r <skill-name> ~/.hermes/skills/<skill-path>/
-```
-
-Or clone this repository:
-
-```bash
-git clone https://github.com/iizcm/github-automation-tips-skill.git ~/.hermes/skills/<skill-path>/
-```
-
-## Usage
-
-Invoke your AI agent with a clear instruction matching this skill's purpose. The agent will route tasks to this skill when the instruction matches its description or trigger keywords.
-
-Refer to `README.md` in this repository for:
-- Detailed step-by-step installation guide
-- Bilingual documentation (English + Indonesian)
-- Troubleshooting table
-- Security best practices
-- Customization tips
-
-## Safety rules
-
-- Never commit private keys, seed phrases, API tokens, or personal data to version control
-- Use placeholders (`<YOUR_...>`) in all examples and code snippets
-- Validate all outputs before acting on them
-- Keep real credentials in your runtime's secure credential store only
+- **Dependency Management**: When working with automation scripts, rely on `pipx` or `uv` environments. Avoid using global `pip` installs for agent tools.
+- **Credential Persistence**: If `gh` is unavailable, ensure `GITHUB_TOKEN` is exported in the environment. If using raw `curl` with API tokens, explicitly note that tokens should be stored in secure locations (never in the prompt/chat history).
+- **Tooling Selection**: Prioritize `gh` over `curl` where possible, as `gh` handles authentication, local config, and common workflows significantly more reliably than raw API calls.
+- **Installation Issues**: Do not add "gh/git not found" as a permanent skill limitation. Check `gh` status (`gh auth status`) first, and if missing, install it (`sudo apt-get install -y gh`).
